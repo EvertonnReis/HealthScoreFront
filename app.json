@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "HealthScore-Front",
-    "slug": "HealthScore-Front",
+    "slug": "healthscore",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,10 +18,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.everton.reis.healthscore"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "90b0b3cf-cb9e-4b06-9729-e605368ec572"
+      }
+    },
+    "owner": "everton.reis"
   }
 }
