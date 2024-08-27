@@ -1,13 +1,42 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from "react";
 
 export default function Login({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleLogin = () => {
-    onLogin();
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/authenticate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: email,
+          password: password,
+          rememberMe: true,
+        }),
+      });
+      console.log(response)
+      if(response.body.locked == false){
+        setErrorMessage('Email ou senha incorretos');
+      }
+
+      if (response.ok) {
+        const data = await response.json();
+        const token = data.id_token;
+        
+        onLogin(token);
+
+        Alert.alert('Sucesso', 'Login realizado com sucesso');
+        setErrorMessage('');
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível conectar ao servidor');
+    }
   };
 
   return (
@@ -35,6 +64,12 @@ export default function Login({ onLogin }) {
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
+
+        {errorMessage && (
+          <Text style={styles.errorText}>
+            {errorMessage}
+          </Text>
+        )}
       </View>
     </View>
   );
@@ -78,5 +113,9 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#ffffff',
     fontSize: 18,
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 10,
   },
 });
