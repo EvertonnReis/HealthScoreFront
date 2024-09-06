@@ -7,9 +7,6 @@ export default function Inicial() {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Health Score</Text>
-      </View>
 
       <View style={styles.content}>
         <Text style={styles.welcomeText}>Seja Bem-vindo ao Health Score!</Text>
@@ -22,10 +19,7 @@ export default function Inicial() {
           <Text style={styles.buttonText}>Cadastrar Atividades</Text>
         </TouchableOpacity>
       </View>
-      
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>© 2024 Health Score</Text>
-      </View>
+         
     </View>
   );
 }

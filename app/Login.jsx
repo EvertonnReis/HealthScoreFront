@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from "react";
 
 export default function Login({ onLogin }) {
@@ -29,7 +29,7 @@ export default function Login({ onLogin }) {
         const data = await response.json();
         const token = data.id_token;
         
-        onLogin(token);
+        onLogin(token, email);
 
         Alert.alert('Sucesso', 'Login realizado com sucesso');
         setErrorMessage('');
@@ -47,9 +47,13 @@ export default function Login({ onLogin }) {
       </View>
 
       <View style={styles.content}>
+        <Image
+          source={require('../assets/logo_HS.png')}
+          style={styles.logo}
+        />
         <TextInput
           style={styles.input}
-          placeholder="Email"
+          placeholder="Username"
           value={email}
           onChangeText={setEmail}
         />
@@ -96,6 +100,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
   },
+  logo: {
+    width: 200,
+    height: 200,
+    borderRadius: 50,
+    marginBottom: 20,
+  },
   input: {
     width: '100%',
     backgroundColor: '#ffffff',
@@ -104,6 +114,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   button: {
+    width: '100%',
     backgroundColor: '#004d00',
     paddingVertical: 15,
     paddingHorizontal: 30,
@@ -111,6 +122,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   buttonText: {
+    textAlign: 'center',
     color: '#ffffff',
     fontSize: 18,
   },
