@@ -1,43 +1,131 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { ProgressBar, Avatar, Card, Title } from 'react-native-paper';
 
-export default function TelaPerfil() {
+export default function HomeDashboard() {
   return (
-    <View style={styles.container}>
-      <View style={styles.profileCard}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={{ uri: 'https://via.placeholder.com/150' }} // Substitua com a URL da imagem desejada
-            style={styles.profileImage}
-          />
+    <ScrollView style={styles.container}>
+      {/* Perfil */}
+      <View style={styles.profileSection}>
+        <Avatar.Image size={80} source={{ uri: 'https://example.com/profile.jpg' }} />
+        <View style={styles.profileInfo}>
+          <Text style={styles.profileName}>Lucas Gabriel</Text>
+          <TouchableOpacity style={styles.settingsButton}>
+            <Text style={styles.settingsButtonText}>Configurações</Text>
+          </TouchableOpacity>
         </View>
-        <Text style={styles.name}>João Silva</Text>
-        <Text style={styles.age}>Idade: 30 anos</Text>
       </View>
 
-      <View style={styles.dashboard}>
-        <Text style={styles.dashboardTitle}>Atividades Físicas</Text>
-        <View style={styles.activityCard}>
-          <Text style={styles.activityTitle}>Passos</Text>
-          <Text style={styles.activityValue}>10,235</Text>
+      {/* Progresso */}
+      <View style={styles.progressSection}>
+        <Text style={styles.sectionTitle}>Progresso da Semana</Text>
+        <ProgressBar progress={0.7} color={'#004d00'} style={styles.progressBar} />
+      </View>
+
+      {/* Cartões */}
+      <View style={styles.cardsContainer}>
+        <Card style={styles.card}>
+          <Card.Content>
+            <Title>Meta de Corrida</Title>
+            <Text>Completar 5km</Text>
+            <ProgressBar progress={0.5} color={'#004d00'} />
+          </Card.Content>
+        </Card>
+
+        <Card style={styles.card}>
+          <Card.Content>
+            <Title>Consumo de Proteínas</Title>
+            <Text>80g / 100g</Text>
+            <ProgressBar progress={0.8} color={'#004d00'} />
+          </Card.Content>
+        </Card>
+      </View>
+
+      {/* Últimas Atividades */}
+      <View style={styles.activitySection}>
+        <Text style={styles.sectionTitle}>Últimas Atividades</Text>
+        <View style={styles.activity}>
+          <Avatar.Icon size={48} icon="run" style={styles.activityIcon} />
+          <Text>Corrida - 30 min - 300 cal</Text>
         </View>
-        <View style={styles.activityCard}>
-          <Text style={styles.activityTitle}>Calorias Queimadas</Text>
-          <Text style={styles.activityValue}>850 kcal</Text>
-        </View>
-        <View style={styles.activityCard}>
-          <Text style={styles.activityTitle}>Distância Percorrida</Text>
-          <Text style={styles.activityValue}>8.2 km</Text>
+        <View style={styles.activity}>
+          <Avatar.Icon size={48} icon="bicycle" style={styles.activityIcon} />
+          <Text>Ciclismo - 45 min - 500 cal</Text>
         </View>
       </View>
-    </View>
+
+      {/* dados da conta */}
+      <View style={styles.activitySection}>
+        <Text style={styles.sectionTitle}>Conta</Text>
+        <View style={styles.activity}>
+          <Avatar.Icon size={48} icon="logout" style={styles.activityIcon} />
+          <Text>Trocar de conta</Text>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#ffffff',
+    padding: 20,
+  },
+  profileSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  profileInfo: {
+    marginLeft: 15,
+  },
+  profileName: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#004d00',
+  },
+  settingsButton: {
+    marginTop: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    backgroundColor: '#004d00',
+    borderRadius: 5,
+  },
+  settingsButtonText: {
+    color: '#fff',
+    fontSize: 14,
+  },
+  progressSection: {
+    marginVertical: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  progressBar: {
+    height: 10,
+  },
+  cardsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  card: {
+    width: '48%',
+    padding: 10,
+  },
+  activitySection: {
+    marginTop: 20,
+  },
+  activity: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  activityIcon: {
+    marginRight: 10,
+    backgroundColor: '#004d00',
   },
   profileCard: {
     width: '90%',
