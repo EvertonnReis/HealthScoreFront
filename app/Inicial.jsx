@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, ScrollView, StyleSheet, StatusBar} from 'react-native';
-import { ProgressBar, colors, Avatar, Card, Title, Button} from 'react-native-paper';
-import { FontAwesome, MaterialCommunityIcons  } from '@expo/vector-icons'; // Importa os ícones FontAwesome
+import { FontAwesome, MaterialCommunityIcons  } from '@expo/vector-icons';
 
 
 export default function Inicial() {

@@ -4,14 +4,17 @@ import { View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 export default function Cadastrar() {
   return (
     <View style={styles.cta}>
-      <TouchableOpacity style={styles.button} onPress={() => { /* Lógica para cadastrar atividades */ }}>
+      <TouchableOpacity style={styles.button} onPress={() => {}}>
         <Text style={styles.buttonText}>Cadastrar Atividades</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => { /* Lógica para cadastrar atividades */ }}>
+      <TouchableOpacity style={styles.button} onPress={() => {}}>
         <Text style={styles.buttonText}>Cadastrar Alimentação</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => { /* Lógica para cadastrar atividades */ }}>
+      <TouchableOpacity style={styles.button} onPress={() => {}}>
         <Text style={styles.buttonText}>Cadastrar Horas de Sono</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => {}}>
+        <Text style={styles.buttonText}>Cadastrar Metas</Text>
       </TouchableOpacity>
     </View>
   );
