@@ -2,7 +2,13 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { ProgressBar, Avatar, Card, Title } from 'react-native-paper';
 
-export default function HomeDashboard() {
+export default function Perfil() {
+
+  const logout = () => {
+    localStorage.removeItem('authToken');
+    window.location.href = '/login';
+  };
+
   return (
     <ScrollView style={styles.container}>
       {/* Perfil */}
@@ -57,10 +63,12 @@ export default function HomeDashboard() {
       {/* dados da conta */}
       <View style={styles.activitySection}>
         <Text style={styles.sectionTitle}>Conta</Text>
-        <View style={styles.activity}>
-          <Avatar.Icon size={48} icon="logout" style={styles.activityIcon} />
-          <Text>Trocar de conta</Text>
-        </View>
+        <TouchableOpacity onPress={logout}>
+          <View style={styles.activity}>
+            <Avatar.Icon size={48} icon="logout" style={styles.activityIcon} />
+            <Text>Trocar de conta</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

@@ -157,7 +157,6 @@ export default function Login({ onLogin }) {
           rememberMe: true,
         }),
       });
-      console.log(response)
       if(response.body.locked == false){
         setErrorMessage('Email ou senha incorretos');
       }
@@ -165,6 +164,9 @@ export default function Login({ onLogin }) {
       if (response.ok) {
         const data = await response.json();
         const token = data.id_token;
+
+        // Salvar o token no localStorage
+        localStorage.setItem('authToken', token);
         
         onLogin(token, email);
 
