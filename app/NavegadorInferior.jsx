@@ -7,10 +7,18 @@ import { Ionicons } from '@expo/vector-icons';
 import Popover from 'react-native-popover-view';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
+import ModalConsumoAgua from './ModalConsumoAgua';
+import ModalMedicamentos from './ModalMedicamentos';
+import ModalAtividadesFisicas from './ModalAtividadesFisicas';
+
 const Tab = createBottomTabNavigator();
 
 export default function NavegadorInferior() {
   const [popoverVisible, setPopoverVisible] = useState(false);
+  const [modalConsumoAguaVisible, setModalConsumoAguaVisible] = useState(false);
+  const [modalMedicamentosVisible, setModalMedicamentosVisible] = useState(false);
+  const [modalAtividadesFisicasVisible, setModalAtividadesFisicasVisible] = useState(false);
+
   const popoverRef = useRef(null);
 
   const handleTabPress = (routeName) => {
@@ -65,17 +73,22 @@ export default function NavegadorInferior() {
         placement="top"
       >
         <View style={styles.popoverContent}>
-          <TouchableOpacity onPress={() => { }}>
-            <Text style={styles.option}>Opção 1</Text>
+          <TouchableOpacity onPress={() => { setPopoverVisible(false); setModalConsumoAguaVisible(true); }}>
+            <Text style={styles.option}>Consumo de Água</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { }}>
-            <Text style={styles.option}>Opção 2</Text>
+          <TouchableOpacity onPress={() => { setPopoverVisible(false); setModalMedicamentosVisible(true); }}>
+            <Text style={styles.option}>Medicamentos</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {  }}>
-            <Text style={styles.option}>Opção 3</Text>
+          <TouchableOpacity onPress={() => { setPopoverVisible(false); setModalAtividadesFisicasVisible(true); }}>
+            <Text style={styles.option}>Atividades Físicas</Text>
           </TouchableOpacity>
         </View>
       </Popover>
+
+      {/* Integrando os Modais Externos */}
+      <ModalConsumoAgua visible={modalConsumoAguaVisible} onClose={() => setModalConsumoAguaVisible(false)} />
+      <ModalMedicamentos visible={modalMedicamentosVisible} onClose={() => setModalMedicamentosVisible(false)} />
+      <ModalAtividadesFisicas visible={modalAtividadesFisicasVisible} onClose={() => setModalAtividadesFisicasVisible(false)} />
     </>
   );
 }

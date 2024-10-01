@@ -134,7 +134,7 @@
 
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Modal, Alert } from 'react-native';
 import React, { useState } from "react";
 import { FontAwesome } from '@expo/vector-icons'; // Para os ícones de redes sociais
 
@@ -142,8 +142,12 @@ export default function Login({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerUsername, setRegisterUsername] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  
   const handleLogin = async () => {
     try {
       const response = await fetch('http://localhost:8080/api/authenticate', {
@@ -157,10 +161,6 @@ export default function Login({ onLogin }) {
           rememberMe: true,
         }),
       });
-      console.log(response)
-      if(response.body.locked == false){
-        setErrorMessage('Email ou senha incorretos');
-      }
 
       if (response.ok) {
         const data = await response.json();
@@ -170,6 +170,38 @@ export default function Login({ onLogin }) {
 
         Alert.alert('Sucesso', 'Login realizado com sucesso');
         setErrorMessage('');
+      } else {
+        setErrorMessage('Email ou senha incorretos');
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível conectar ao servidor');
+    }
+  };
+
+  const handleRegister = async () => {
+    if (registerPassword !== confirmPassword) {
+      Alert.alert('Erro', 'As senhas não coincidem');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8080/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          login: registerUsername,
+          email: registerEmail,
+          password: registerPassword,
+        }),
+      });
+
+      if (response.ok) {
+        Alert.alert('Sucesso', 'Registro realizado com sucesso');
+        setModalVisible(false);
+      } else {
+        Alert.alert('Erro', 'Não foi possível registrar o usuário');
       }
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível conectar ao servidor');
@@ -183,7 +215,7 @@ export default function Login({ onLogin }) {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      
+
       <View style={styles.header}>
         <Text style={styles.headerText}>Login</Text>
       </View>
@@ -196,7 +228,6 @@ export default function Login({ onLogin }) {
       </View>
 
       <View style={styles.content}>
-        
         <TextInput
           style={styles.input}
           placeholder="Username"
@@ -219,6 +250,10 @@ export default function Login({ onLogin }) {
           <Text style={styles.forgotPasswordText}>Esqueceu a senha?</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <Text style={styles.registerText}>Não tem uma conta? Registre-se</Text>
+        </TouchableOpacity>
+
         <View style={styles.socialLoginContainer}>
           <Text style={styles.socialLoginText}>Ou faça login com:</Text>
           <View style={styles.iconContainer}>
@@ -239,6 +274,54 @@ export default function Login({ onLogin }) {
           </Text>
         )}
       </View>
+
+      <Modal
+        transparent={true}
+        animationType="slide"
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalHeader}>Registrar</Text>
+
+            <TextInput
+              style={styles.input}
+              placeholder="Nome de Usuário"
+              value={registerUsername}
+              onChangeText={setRegisterUsername}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              value={registerEmail}
+              onChangeText={setRegisterEmail}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Senha"
+              secureTextEntry
+              value={registerPassword}
+              onChangeText={setRegisterPassword}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Confirme a Senha"
+              secureTextEntry
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+            />
+
+            <TouchableOpacity style={styles.button} onPress={handleRegister}>
+              <Text style={styles.buttonText}>Registrar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <Text style={styles.closeModalText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -302,6 +385,13 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     textAlign: 'center',
   },
+  registerText: {
+    color: '#004d00',
+    fontSize: 14,
+    marginTop: 10,
+    textDecorationLine: 'underline',
+    textAlign: 'center',
+  },
   socialLoginContainer: {
     marginTop: 20,
     alignItems: 'center',
@@ -320,5 +410,34 @@ const styles = StyleSheet.create({
   },
   socialButton: {
     paddingHorizontal: 15,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+  },
+  modalHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  closeModalText: {
+    color: '#004d00',
+    fontSize: 14,
+    marginTop: 20,
+    textDecorationLine: 'underline',
+    textAlign: 'center',
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 10,
   },
 });

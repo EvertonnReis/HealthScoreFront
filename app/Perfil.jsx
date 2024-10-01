@@ -59,7 +59,7 @@ export default function HomeDashboard() {
         <Text style={styles.sectionTitle}>Conta</Text>
         <View style={styles.activity}>
           <Avatar.Icon size={48} icon="logout" style={styles.activityIcon} />
-          <Text>Trocar de conta</Text>
+          <Text>LogOut</Text>
         </View>
       </View>
     </ScrollView>
