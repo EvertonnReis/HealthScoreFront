@@ -63,19 +63,16 @@ export default function Perfil() {
       {/* dados da conta */}
       <View style={styles.activitySection}>
         <Text style={styles.sectionTitle}>Conta</Text>
-<<<<<<< HEAD
         <View style={styles.activity}>
           <Avatar.Icon size={48} icon="logout" style={styles.activityIcon} />
           <Text>LogOut</Text>
         </View>
-=======
         <TouchableOpacity onPress={logout}>
           <View style={styles.activity}>
             <Avatar.Icon size={48} icon="logout" style={styles.activityIcon} />
             <Text>Trocar de conta</Text>
           </View>
         </TouchableOpacity>
->>>>>>> 78023ef079c25803ef8fdbf62e475a9460b1eef0
       </View>
     </ScrollView>
   );

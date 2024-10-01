@@ -66,7 +66,7 @@ export default function NavegadorInferior() {
         <Tab.Screen name="Perfil" component={TelaPerfil} />
       </Tab.Navigator>
 
-      <Popover
+      {/* <Popover
         isVisible={popoverVisible}
         from={popoverRef.current}
         onRequestClose={() => setPopoverVisible(false)}
@@ -83,12 +83,12 @@ export default function NavegadorInferior() {
             <Text style={styles.option}>Atividades Físicas</Text>
           </TouchableOpacity>
         </View>
-      </Popover>
+      </Popover> */}
 
       {/* Integrando os Modais Externos */}
-      <ModalConsumoAgua visible={modalConsumoAguaVisible} onClose={() => setModalConsumoAguaVisible(false)} />
+      {/* <ModalConsumoAgua visible={modalConsumoAguaVisible} onClose={() => setModalConsumoAguaVisible(false)} />
       <ModalMedicamentos visible={modalMedicamentosVisible} onClose={() => setModalMedicamentosVisible(false)} />
-      <ModalAtividadesFisicas visible={modalAtividadesFisicasVisible} onClose={() => setModalAtividadesFisicasVisible(false)} />
+      <ModalAtividadesFisicas visible={modalAtividadesFisicasVisible} onClose={() => setModalAtividadesFisicasVisible(false)} /> */}
     </>
   );
 }

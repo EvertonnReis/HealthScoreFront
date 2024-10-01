@@ -26,12 +26,10 @@ export default function Login({ onLogin }) {
           rememberMe: true,
         }),
       });
-<<<<<<< HEAD
-=======
+
       if(response.body.locked == false){
         setErrorMessage('Email ou senha incorretos');
       }
->>>>>>> 78023ef079c25803ef8fdbf62e475a9460b1eef0
 
       if (response.ok) {
         const data = await response.json();
