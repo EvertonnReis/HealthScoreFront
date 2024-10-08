@@ -13,50 +13,12 @@ export default function Perfil() {
     <ScrollView style={styles.container}>
       {/* Perfil */}
       <View style={styles.profileSection}>
-        <Avatar.Image size={80} source={{ uri: 'https://example.com/profile.jpg' }} />
+        <Avatar.Image size={80} source={{ uri: 'https://media-gru1-1.cdn.whatsapp.net/v/t61.24694-24/411588916_547117747890105_451393986055405640_n.jpg?ccb=11-4&oh=01_Q5AaIKb4L7lGK5P9tLjPOeaVHJ9cN2GyPZ-0CETGyexysxD5&oe=6711338C&_nc_sid=5e03e0&_nc_cat=106' }} />
         <View style={styles.profileInfo}>
-          <Text style={styles.profileName}>Lucas Gabriel</Text>
+          <Text style={styles.profileName}>Lucas </Text>
           <TouchableOpacity style={styles.settingsButton}>
             <Text style={styles.settingsButtonText}>Configurações</Text>
           </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Progresso */}
-      <View style={styles.progressSection}>
-        <Text style={styles.sectionTitle}>Progresso da Semana</Text>
-        <ProgressBar progress={0.7} color={'#004d00'} style={styles.progressBar} />
-      </View>
-
-      {/* Cartões */}
-      <View style={styles.cardsContainer}>
-        <Card style={styles.card}>
-          <Card.Content>
-            <Title>Meta de Corrida</Title>
-            <Text>Completar 5km</Text>
-            <ProgressBar progress={0.5} color={'#004d00'} />
-          </Card.Content>
-        </Card>
-
-        <Card style={styles.card}>
-          <Card.Content>
-            <Title>Consumo de Proteínas</Title>
-            <Text>80g / 100g</Text>
-            <ProgressBar progress={0.8} color={'#004d00'} />
-          </Card.Content>
-        </Card>
-      </View>
-
-      {/* Últimas Atividades */}
-      <View style={styles.activitySection}>
-        <Text style={styles.sectionTitle}>Últimas Atividades</Text>
-        <View style={styles.activity}>
-          <Avatar.Icon size={48} icon="run" style={styles.activityIcon} />
-          <Text>Corrida - 30 min - 300 cal</Text>
-        </View>
-        <View style={styles.activity}>
-          <Avatar.Icon size={48} icon="bicycle" style={styles.activityIcon} />
-          <Text>Ciclismo - 45 min - 500 cal</Text>
         </View>
       </View>
 

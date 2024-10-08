@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, StyleSheet, StatusBar} from 'react-native';
-import { FontAwesome, MaterialCommunityIcons  } from '@expo/vector-icons';
-
+import { View, Text, TouchableOpacity, Image, ScrollView, StyleSheet, StatusBar } from 'react-native';
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import { ProgressBar, Card, Title, Avatar } from 'react-native-paper'; 
 
 export default function Inicial() {
   return (
@@ -9,39 +9,60 @@ export default function Inicial() {
       <StatusBar style="light" />
       <View style={styles.carousel}>
         <Image
-          source={require('../assets/Health.gif')}
+          source={require('../assets/gif.gif')}
           style={styles.carouselImage}
         />
       </View>
 
       <View style={styles.cta}>
-        <Text style={styles.title}><strong>SEJA O SEU MELHOR!</strong></Text>
+        <Text style={styles.title}>SEJA O SEU MELHOR!</Text>
         <Text style={styles.description}>
           HealthScore, estamos aqui para te animar a 
         </Text>
-        <Text  style={styles.description2}>
+        <Text style={styles.description2}>
           cada passo do seu caminho!
         </Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => { /* Lógica para cadastrar metas */ }}>
-          <Text style={styles.buttonText}>Cadastrar Metas</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button} onPress={() => { /* Lógica para cadastrar atividades */ }}>
-          <Text style={styles.buttonText}>Cadastrar Atividades</Text>
-        </TouchableOpacity>
-
-        {/* Botões de Mídia Social */}
         <View style={styles.socialMediaButtons}>
           <TouchableOpacity>
-            <FontAwesome name="whatsapp" size={24} color="Grenn" />
+            <FontAwesome name="whatsapp" size={24} color="green" />
           </TouchableOpacity>
           <TouchableOpacity>
-            <FontAwesome name="instagram" size={24} color="Grenn" />
+            <FontAwesome name="instagram" size={24} color="green" />
           </TouchableOpacity>
           <TouchableOpacity>
-            <FontAwesome name="facebook" size={24} color="Grenn" />
+            <FontAwesome name="facebook" size={24} color="green" />
           </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.cardsContainer}>
+        <Card style={styles.card}>
+          <Card.Content>
+            <Title style={styles.tipText}>Meta de Corrida</Title>
+            <Text style={styles.tipText1}>Completar 5km</Text>
+            <ProgressBar style={styles.tipText1} progress={0.5} color={'#8ee669'} />
+          </Card.Content>
+        </Card>
+
+        <Card style={styles.card}>
+          <Card.Content>
+            <Title style={styles.tipText}>Consumo de Proteínas</Title>
+            <Text style={styles.tipText1}>80g / 100g</Text>
+            <ProgressBar style={styles.tipText1} progress={0.8} color={'#8ee669'} />
+          </Card.Content>
+        </Card>
+      </View>
+
+      <View style={styles.activitySection}>
+        <Text style={styles.sectionTitle}>Últimas Atividades</Text>
+        <View style={styles.activity}>
+          <Avatar.Icon size={48} icon="run" style={styles.activityIcon} />
+          <Text style={styles.tipText}>Corrida - 30 min - 300 cal</Text>
+        </View>
+        <View style={styles.activity}>
+          <Avatar.Icon size={48} icon="bicycle" style={styles.activityIcon} />
+          <Text style={styles.tipText}>Ciclismo - 45 min - 500 cal</Text>
         </View>
       </View>
 
@@ -49,41 +70,28 @@ export default function Inicial() {
         <Text style={styles.sectionTitle}>Dicas de Saúde</Text>
         <View style={styles.tipsContainer}>
           <View style={styles.tipCard}>
-            <MaterialCommunityIcons name="water" size={40} color="#004d00" style={styles.tipIcon} />
+            <MaterialCommunityIcons name="water" size={40} color="#8ee669" style={styles.tipIcon} />
             <Text style={styles.tipTitle}>Hidrate-se</Text>
-            <Text style={styles.tipText}>Beba pelo menos 8 copos de água por dia para manter-se hidratado e energizado.</Text>
+            <Text style={styles.tipText}>Beba pelo menos 8 copos de água por dia.</Text>
           </View>
 
           <View style={styles.tipCard}>
-            <MaterialCommunityIcons name="run" size={40} color="#004d00" style={styles.tipIcon} />
+            <MaterialCommunityIcons name="run" size={40} color="#8ee669" style={styles.tipIcon} />
             <Text style={styles.tipTitle}>Exercite-se Regularmente</Text>
-            <Text style={styles.tipText}>Inclua pelo menos 30 minutos de atividade física em sua rotina diária para melhorar sua saúde.</Text>
+            <Text style={styles.tipText}>Faça 30 minutos de exercício diário.</Text>
           </View>
 
           <View style={styles.tipCard}>
-            <MaterialCommunityIcons name="food-apple" size={40} color="#004d00" style={styles.tipIcon} />
+            <MaterialCommunityIcons name="food-apple" size={40} color="#8ee669" style={styles.tipIcon} />
             <Text style={styles.tipTitle}>Alimente-se Bem</Text>
-            <Text style={styles.tipText}>Mantenha uma dieta balanceada rica em frutas, vegetais e proteínas para obter todos os nutrientes necessários.</Text>
+            <Text style={styles.tipText}>Mantenha uma dieta balanceada.</Text>
           </View>
         </View>
       </View>
-    
 
-      <View style={styles.testimonialsSection}>
+      {/* <View style={styles.testimonialsSection}>
         <Text style={styles.sectionTitle}>Depoimentos</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View style={styles.testimonial}>
-            <FontAwesome name="star" size={24} color="green" />
-            <Text style={styles.testimonialText}>“O app me ajudou muito a manter uma rotina de exercícios.” - Maria</Text>
-          </View>
-          <View style={styles.testimonial}>
-            <FontAwesome name="star" size={24} color="green" />
-            <Text style={styles.testimonialText}>“O app me ajudou muito a manter uma rotina de exercícios.” - Maria</Text>
-          </View>
-          <View style={styles.testimonial}>
-            <FontAwesome name="star" size={24} color="green" />
-            <Text style={styles.testimonialText}>“O app me ajudou muito a manter uma rotina de exercícios.” - Maria</Text>
-          </View>
           <View style={styles.testimonial}>
             <FontAwesome name="star" size={24} color="green" />
             <Text style={styles.testimonialText}>“O app me ajudou muito a manter uma rotina de exercícios.” - Maria</Text>
@@ -93,8 +101,7 @@ export default function Inicial() {
             <Text style={styles.testimonialText}>“Sinto-me muito mais motivada!” - Gabriela</Text>
           </View>
         </ScrollView>
-      </View>
-      
+      </View> */}
 
       <View style={styles.footer}>
         <Text style={styles.footerText}>© 2024 Health Score</Text>
@@ -102,6 +109,7 @@ export default function Inicial() {
     </ScrollView>
   );
 }
+
 
 const styles = StyleSheet.create({
 
@@ -159,6 +167,79 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
+  cardsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    marginVertical: 20,
+  },
+  
+  card: {
+    backgroundColor: '#004d00',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 10,
+    width: '45%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#004d00',
+    marginBottom: 5,
+  },
+
+  tipText1:{
+    marginTop: 20,
+    alignItems: 'center',
+    textAlign: 'center',
+    color: '#ffffff',
+  },
+  
+  cardText: {
+    fontSize: 14,
+    color: '#333',
+    marginBottom: 10,
+  },
+  
+  cardProgressBar: {
+    marginTop: 10,
+  },
+
+  activitySection: {
+    marginTop: 30,
+    paddingHorizontal: 10,
+  },
+  
+  activity: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15,
+    backgroundColor: '#004d00',
+    padding: 15,
+    borderRadius: 10,
+    shadowColor: '#fffff',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  
+  activityIcon: {
+    marginRight: 10,
+    backgroundColor: '#8ee669',
+  },
+  
+  activityText: {
+    fontSize: 16,
+    color: '#004d00',
+  },
+  
   container: {
     flex: 1,
     backgroundColor: '#ffffff', 
@@ -205,7 +286,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   tipCard: {
-    backgroundColor: '#e0f7fa',
+    backgroundColor: '#004d00',
     borderRadius: 10,
     padding: 15,
     marginBottom: 10,
@@ -223,12 +304,13 @@ const styles = StyleSheet.create({
   tipTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#004d00',
+    color: '#ffffff',
     marginBottom: 5,
+    textAlign: 'center'
   },
   tipText: {
     textAlign: 'center',
-    color: '#333',
+    color: '#ffffff',
   },
 
 
@@ -238,7 +320,6 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontFamily: 'Horta',
-
     fontSize: 24,
     fontWeight: 'bold',
     color: '#004d00',

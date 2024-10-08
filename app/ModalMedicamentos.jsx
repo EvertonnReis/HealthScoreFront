@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Modal, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function ModalMedicamentos({ visible, onClose }) {
   const [nomeMedicamento, setNomeMedicamento] = useState('');
@@ -23,43 +24,59 @@ export default function ModalMedicamentos({ visible, onClose }) {
   };
 
   return (
-    <Modal visible={visible} animationType="slide" onRequestClose={onClose}>
-      <View style={styles.modalContent}>
-        <Text style={styles.title}>Registro de Medicamentos</Text>
+    <Modal visible={visible} animationType="slide" transparent={true} onRequestClose={onClose}>
+      <View style={styles.modalOverlay}>
+        <View style={styles.modalContent}>
+          <Text style={styles.title}>Registro de Medicamentos</Text>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Nome do Medicamento"
-          value={nomeMedicamento}
-          onChangeText={setNomeMedicamento}
-        />
+          <View style={styles.inputContainer}>
+            <Icon name="pencil" size={20} color="#004d00" />
+            <TextInput
+              style={styles.input}
+              placeholder="Nome do Medicamento"
+              value={nomeMedicamento}
+              onChangeText={setNomeMedicamento}
+            />
+          </View>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Dosagem (ex: 500mg)"
-          value={dosagem}
-          onChangeText={setDosagem}
-        />
+          <View style={styles.inputContainer}>
+            <Icon name="medkit" size={20} color="#004d00" />
+            <TextInput
+              style={styles.input}
+              placeholder="Dosagem (ex: 500mg)"
+              value={dosagem}
+              onChangeText={setDosagem}
+            />
+          </View>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Horário Registrado"
-          value={horarioRegistrado.toISOString().replace('T', ' ').substring(0, 16)}
-          onFocus={() => setShowPicker(true)} // Abre o DateTimePicker ao focar
-        />
+          <View style={styles.inputContainer}>
+            <Icon name="clock-o" size={20} color="#004d00" />
+            <TextInput
+              style={styles.input}
+              placeholder="Horário Registrado"
+              value={horarioRegistrado.toISOString().replace('T', ' ').substring(0, 16)}
+              onFocus={() => setShowPicker(true)} // Abre o DateTimePicker ao focar
+            />
+          </View>
 
-        {showPicker && (
-          <DateTimePicker
-            value={horarioRegistrado}
-            mode="datetime"
-            display="default"
-            onChange={onChangeDateTime}
-          />
-        )}
+          {showPicker && (
+            <DateTimePicker
+              value={horarioRegistrado}
+              mode="datetime"
+              display="default"
+              onChange={onChangeDateTime}
+            />
+          )}
 
-        <View style={styles.buttonContainer}>
-          <Button title="Salvar" onPress={handleSave} />
-          <Button title="Fechar" onPress={onClose} color="red" />
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+              <Text style={styles.buttonText}>Salvar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+              <Text style={styles.buttonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>
@@ -67,28 +84,61 @@ export default function ModalMedicamentos({ visible, onClose }) {
 }
 
 const styles = StyleSheet.create({
-  modalContent: {
+  modalOverlay: {
     flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fundo semi-transparente
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  modalContent: {
+    width: '90%',
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
     padding: 20,
+    alignItems: 'center',
   },
   title: {
     fontSize: 24,
     marginBottom: 20,
     fontWeight: 'bold',
+    color: '#004d00',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 15,
+    width: '100%',
   },
   input: {
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    width: '100%',
-    marginBottom: 20,
+    flex: 1,
+    marginLeft: 10,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
+    marginTop: 20,
+  },
+  saveButton: {
+    backgroundColor: '#004d00',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  closeButton: {
+    backgroundColor: '#ff3b30',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
