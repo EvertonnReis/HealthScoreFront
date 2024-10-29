@@ -4,9 +4,10 @@ import { ProgressBar, Avatar, Card, Title } from 'react-native-paper';
 
 export default function Perfil() {
 
-  const logout = () => {
+  const handleLogout = () => {
     localStorage.removeItem('authToken');
     window.location.href = '/login';
+    window.location.reload();
   };
 
   return (
@@ -25,11 +26,13 @@ export default function Perfil() {
       {/* dados da conta */}
       <View style={styles.activitySection}>
         <Text style={styles.sectionTitle}>Conta</Text>
-        <View style={styles.activity}>
-          <Avatar.Icon size={48} icon="logout" style={styles.activityIcon} />
-          <Text>LogOut</Text>
-        </View>
-        <TouchableOpacity onPress={logout}>
+        <TouchableOpacity onPress={handleLogout}>
+          <View style={styles.activity}>
+            <Avatar.Icon size={48} icon="logout" style={styles.activityIcon} />
+            <Text>LogOut</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity>
           <View style={styles.activity}>
             <Avatar.Icon size={48} icon="logout" style={styles.activityIcon} />
             <Text>Trocar de conta</Text>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, Modal, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import InputConsumoAgua from './InputConsumoAgua'; 
+import { Ionicons } from '@expo/vector-icons'; 
 
 export default function ModalConsumoAgua({ visible, onClose }) {
   const [dataConsumo, setDataConsumo] = useState(new Date());
@@ -16,6 +17,13 @@ export default function ModalConsumoAgua({ visible, onClose }) {
     setDataConsumo(currentDate);
   };
 
+  const onChange = (event, selectedDate) => {
+    if (selectedDate) {
+      setDataConsumo(selectedDate);
+    }
+    setShowDatePicker(false);
+  };
+
   return (
     <Modal visible={visible} animationType="slide" transparent={true} onRequestClose={onClose}>
       <View style={styles.modalOverlay}>
@@ -23,26 +31,33 @@ export default function ModalConsumoAgua({ visible, onClose }) {
           <Text style={styles.modalTitle}>Registrar Consumo de Água</Text>
 
           <Text style={styles.label}>Data de Consumo:</Text>
-          <TextInput
-            style={styles.input}
-            value={dataConsumo.toLocaleDateString()}
-            editable={false} 
-          />
-          <TouchableOpacity
-            style={styles.dateButton}
-            onPress={() => setShowDatePicker(true)}
-          >
-            <Text style={styles.dateButtonText}>Selecionar Data</Text>
-          </TouchableOpacity>
+          <View style={styles.inputGroup}>
+            <Ionicons name="calendar-outline" size={24} color="#004d00" style={styles.icon} />
+            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+              <TextInput
+                style={styles.input}
+                placeholder="Data de Consumo"
+                value={dataConsumo.toLocaleString('pt-BR', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })}
+                editable={false}
+              />
+            </TouchableOpacity>
 
-          {showDatePicker && (
-            <DateTimePicker
-              value={dataConsumo}
-              mode="date"
-              display="default"
-              onChange={onChangeDate}
-            />
-          )}
+            {showDatePicker && (
+              <DateTimePicker
+                value={dataConsumo}
+                mode="datetime"
+                display="default"
+                onChange={onChange}
+                locale="pt-BR"
+              />
+            )}
+          </View>
 
           <InputConsumoAgua
             quantidadeAgua={quantidadeAgua}
@@ -84,8 +99,6 @@ const styles = StyleSheet.create({
     elevation: 10, 
   },
   modalTitle: {
-    fontFamily: 'Horta',
-
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 20,
@@ -97,26 +110,20 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: '#333',
   },
+  inputGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  icon: {
+    marginRight: 10,
+  },
   input: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 15,
     paddingHorizontal: 10,
-    width: '100%',
-  },
-  dateButton: {
-    backgroundColor: '#e0e0e0',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 5,
-    marginBottom: 20,
-    alignItems: 'center',
-    width: '100%',
-  },
-  dateButtonText: {
-    fontSize: 16,
-    color: '#333',
+    flex: 1,
   },
   buttonContainer: {
     width: 250,
@@ -128,7 +135,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderRadius: 5,
     alignItems: 'center',
-    width:250,
+    width: 250,
     flex: 1,
     marginLeft: 10, 
   },
