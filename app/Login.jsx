@@ -14,46 +14,47 @@ export default function Login({ onLogin }) {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleLogin = async () => {
-    // try {
-    //   const response = await fetch('http://localhost:8080/api/authenticate', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       username: email,
-    //       password: password,
-    //       rememberMe: true,
-    //     }),
-    //   });
+    try {
+      const response = await fetch('http://localhost:8080/api/authenticate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: email,
+          password: password,
+          rememberMe: true,
+        }),
+      });
 
-    //   if(response.body.locked == false){
-    //     setErrorMessage('Email ou senha incorretos');
-    //   }
+      if(response.body.locked == false){
+        setErrorMessage('Email ou senha incorretos');
+      }
 
-    //   if (response.ok) {
-    //     const data = await response.json();
-    //     const token = data.id_token;
+      if (response.ok) {
+        const data = await response.json();
+        const token = data.id_token;
 
-    //     localStorage.setItem('authToken', token);
+        localStorage.setItem('authToken', token);
         
-    //     onLogin(token, email);
+        onLogin(token, email);
 
-    //     Alert.alert('Sucesso', 'Login realizado com sucesso');
-    //     setErrorMessage('');
-    //   } else {
-    //     setErrorMessage('Email ou senha incorretos');
-    //   }
-    // } catch (error) {
-    //   Alert.alert('Erro', 'Não foi possível conectar ao servidor');
-    // }
+        Alert.alert('Sucesso', 'Login realizado com sucesso');
+        setErrorMessage('');
+      } else {
+        setErrorMessage('Email ou senha incorretos');
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível conectar ao servidor');
+    }
 
     // Simulação de login sem o backend
-  const fakeToken = 'fakeAuthToken';
-  localStorage.setItem('authToken', fakeToken);
-  onLogin(fakeToken, email);
-  Alert.alert('Sucesso', 'Login simulado realizado com sucesso');
-  setErrorMessage('');
+  // const fakeToken = 'fakeAuthToken';
+  // localStorage.setItem('authToken', fakeToken);
+  // onLogin(fakeToken, email);
+  // Alert.alert('Sucesso', 'Login simulado realizado com sucesso');
+  // setErrorMessage('');
+  
   };
 
   const handleRegister = async () => {
@@ -62,28 +63,28 @@ export default function Login({ onLogin }) {
       return;
     }
 
-    // try {
-    //   const response = await fetch('http://localhost:8080/api/register', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       login: registerUsername,
-    //       email: registerEmail,
-    //       password: registerPassword,
-    //     }),
-    //   });
+    try {
+      const response = await fetch('http://localhost:8080/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          login: registerUsername,
+          email: registerEmail,
+          password: registerPassword,
+        }),
+      });
 
-    //   if (response.ok) {
-    //     Alert.alert('Sucesso', 'Registro realizado com sucesso');
-    //     setModalVisible(false);
-    //   } else {
-    //     Alert.alert('Erro', 'Não foi possível registrar o usuário');
-    //   }
-    // } catch (error) {
-    //   Alert.alert('Erro', 'Não foi possível conectar ao servidor');
-    // }
+      if (response.ok) {
+        Alert.alert('Sucesso', 'Registro realizado com sucesso');
+        setModalVisible(false);
+      } else {
+        Alert.alert('Erro', 'Não foi possível registrar o usuário');
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível conectar ao servidor');
+    }
   };
 
   const handleForgotPassword = () => {

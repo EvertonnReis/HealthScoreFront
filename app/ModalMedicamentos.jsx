@@ -20,7 +20,7 @@ export default function ModalMedicamentos({ visible, onClose }) {
   const onChangeDateTime = (event, selectedDate) => {
     const currentDate = selectedDate || horarioRegistrado;
     setShowPicker(false); // Oculta o picker após a seleção
-    setHorarioRegistrado(currentDate);
+    setHorarioRegistrado(currentDate); // Atualiza o horário registrado
   };
 
   return (
@@ -56,6 +56,7 @@ export default function ModalMedicamentos({ visible, onClose }) {
               placeholder="Horário Registrado"
               value={horarioRegistrado.toISOString().replace('T', ' ').substring(0, 16)}
               onFocus={() => setShowPicker(true)} // Abre o DateTimePicker ao focar
+              editable={false} // Impede a edição manual, apenas para seleção via picker
             />
           </View>
 

@@ -22,6 +22,13 @@ export default function ModalAtividadesFisicas({ visible, onClose }) {
     setDataHorario(currentDate);
   };
 
+  const onChange = (event, selectedDate) => {
+    if (selectedDate) {
+      setDataHorario(selectedDate);
+    }
+    setShowPicker(false);
+  };
+
   return (
     <Modal visible={visible} animationType="slide" transparent={true} onRequestClose={onClose}>
       <View style={styles.modalOverlay}>
@@ -45,9 +52,19 @@ export default function ModalAtividadesFisicas({ visible, onClose }) {
                 style={styles.input}
                 placeholder="Data e Horário"
                 value={dataHorario.toISOString().replace('T', ' ').substring(0, 16)}
-                editable={false} 
+                editable={false}
               />
             </TouchableOpacity>
+
+            {showPicker && (
+              <DateTimePicker
+                value={dataHorario}
+                mode="datetime"
+                display="default"
+                onChange={onChange}
+                locale="pt-BR"
+              />
+            )}
           </View>
 
           {showPicker && (
