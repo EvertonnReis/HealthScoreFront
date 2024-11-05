@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, StyleSheet, Modal, Dimensions  } from 'react-native';
 import ModalAtividadesFisicas from './ModalAtividadesFisicas'; // Modal de Atividades Físicas
 import ModalConsumoAgua from './ModalConsumoAgua'; // Modal de Consumo de Água
 import ModalMedicamentos from './ModalMedicamentos'; // Modal de Medicamentos
 import ModalMetas from './ModalMetas'; // Modal de Metas
 
 import Icon from 'react-native-vector-icons/FontAwesome'; 
+
+const { width, height } = Dimensions.get('window');
 
 export default function Cadastrar() {
   const [modalAtividadesFisicasVisible, setModalAtividadesFisicasVisible] = useState(false);
@@ -27,7 +29,6 @@ export default function Cadastrar() {
             onPress={() => setModalAtividadesFisicasVisible(true)}
           >
             <Icon name="heartbeat" size={24} color="#ffffff" />
-            <Text style={styles.buttonText}>Atividades Físicas</Text>
             <Text style={styles.buttonDescription}>Registre suas atividades diárias.</Text>
           </TouchableOpacity>
 
@@ -36,7 +37,6 @@ export default function Cadastrar() {
             onPress={() => setModalConsumoAguaVisible(true)}
           >
             <Icon name="tint" size={24} color="#ffffff" />
-            <Text style={styles.buttonText}>Consumo de Água</Text>
             <Text style={styles.buttonDescription}>Monitore sua hidratação diária.</Text>
           </TouchableOpacity>
 
@@ -45,7 +45,6 @@ export default function Cadastrar() {
             onPress={() => setModalMedicamentosVisible(true)}
           >
             <Icon name="medkit" size={24} color="#ffffff" />
-            <Text style={styles.buttonText}>Medicamentos </Text>
             <Text style={styles.buttonDescription}>Acompanhe sua medicação.</Text>
           </TouchableOpacity>
 
@@ -55,7 +54,6 @@ export default function Cadastrar() {
               // Adicione a ação para cadastrar metas}}
           >
             <Icon name="star" size={24} color="#ffffff" />
-            <Text style={styles.buttonText}>Cadastrar Metas</Text>
             <Text style={styles.buttonDescription}>Defina suas metas de saúde.</Text>
           </TouchableOpacity>
         </View>
@@ -85,42 +83,43 @@ export default function Cadastrar() {
 }
 
 const styles = StyleSheet.create({
-    container: {
+  container: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 20,
+    justifyContent: 'center',
   },
-  image:{
-    width:412,
-    height:914,
-  }, 
-
-  buttonContainer: {
-    
-    padding:130,
+  image: {
     width: '100%',
-    paddingHorizontal: 20,
+    height: '100%',
+  },
+  buttonContainer: {
+    width: '90%', // Define uma largura responsiva
+    paddingVertical: height * 0.05,
   },
   button: {
-    backgroundColor: '#004d00',
-    paddingVertical: 15,
-    paddingHorizontal: 15,
+    backgroundColor: '#00A36C',
+    paddingVertical: height * 0.02, // Ajuste vertical responsivo
+    paddingHorizontal: width * 0.05, // Ajuste horizontal responsivo
     borderRadius: 5,
-    marginVertical: 10,
+    marginVertical: height * 0.01,
     alignItems: 'center',
-    elevation: 2,
+    elevation: 5, // Elevação para Android
+    shadowColor: '#000', // Cor da sombra
+    shadowOffset: { width: 0, height: 2 }, // Deslocamento da sombra
+    shadowOpacity: 0.35, // Opacidade da sombra
+    shadowRadius: 4.5, // Raio de difusão da sombra
+
   },
   buttonText: {
-    fontFamily: 'Horta',
-
     color: '#ffffff',
-    fontSize: 28,
-    marginTop: 5,
+    fontSize: width * 0.01, 
+    marginTop: height * 0.01,
   },
   buttonDescription: {
+    fontWeight: 'bold',
     color: '#ffffff',
-    fontSize: 14,
-    marginTop: 2,
+    fontSize: width * 0.05, 
+    marginTop: height * 0.005,
     textAlign: 'center',
   },
 });

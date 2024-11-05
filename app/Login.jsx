@@ -100,7 +100,7 @@ export default function Login({ onLogin }) {
 
       <View style={styles.logoContainer}>
         <Image
-          source={require('../assets/HealthScore-Logo.png')} 
+          source={require('../assets/Logo3.png')} 
           style={styles.logo}
         />
       </View>
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   header: {
-    backgroundColor: '#004d00',
+    backgroundColor: '#00A36C',
     padding: 20,
     alignItems: 'center',
   },
@@ -225,8 +225,8 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   logo: {
-    width: 300,
-    height: 300,
+    width: 400,
+    height: 400,
     resizeMode: 'contain',
   },
   content: {
@@ -237,34 +237,46 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    backgroundColor: '#004d00',
+    backgroundColor: '#00A36C',
     padding: 10,
     borderRadius: 5,
     marginVertical: 10,
     color: '#ffffff',
+    elevation: 3, // Sombra para Android
+    shadowColor: '#000', // Cor da sombra
+    shadowOffset: { width: 0, height: 2 }, // Deslocamento da sombra
+    shadowOpacity: 0.5, // Opacidade da sombra
+    shadowRadius: 3, // Raio de difusão da sombra
+
   },
   button: {
-    backgroundColor: '#004d00',
+    backgroundColor: '#00A36C',
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 5,
     marginVertical: 10,
     width: '100%',
     alignItems: 'center',
+    elevation: 3, // Sombra para Android
+    shadowColor: '#000', // Cor da sombra
+    shadowOffset: { width: 0, height: 2 }, // Deslocamento da sombra
+    shadowOpacity: 0.5, // Opacidade da sombra
+    shadowRadius: 3, // Raio de difusão da sombra
+
   },
   buttonText: {
     color: '#ffffff',
     fontSize: 18,
   },
   forgotPasswordText: {
-    color: '#004d00',
+    color: '#00A36C',
     fontSize: 14,
     marginTop: 10,
     textDecorationLine: 'underline',
     textAlign: 'center',
   },
   registerText: {
-    color: '#004d00',
+    color: '#00A36C',
     fontSize: 14,
     marginTop: 10,
     textDecorationLine: 'underline',
@@ -308,7 +320,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   closeModalText: {
-    color: '#004d00',
+    color: '#00A36C',
     fontSize: 14,
     marginTop: 20,
     textDecorationLine: 'underline',

@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function ModalMetas({ visible, onClose }) {
   const [meta, setMeta] = useState('');
+  const [dataMeta, setDataMeta] = useState('');
   const [pontos, setPontos] = useState(0);
   const [metas, setMetas] = useState([]);
   const [alertaVisible, setAlertaVisible] = useState(false);
+  const [dataInvalida, setDataInvalida] = useState(false);
   const [recompensaVisible, setRecompensaVisible] = useState(false);
 
   useEffect(() => {
+    verificarMetasExpiradas();
+
     const metasNaoConcluidas = metas.filter(item => !item.concluida);
     setAlertaVisible(metasNaoConcluidas.length >= 3);
 
@@ -21,17 +25,52 @@ export default function ModalMetas({ visible, onClose }) {
     }
   }, [metas]);
 
-  const adicionarMeta = () => {
-    if (meta.trim() === '' || alertaVisible) {
-      return; 
-    }
+  // Verifica se alguma meta foi expirada, caso isso aconteça ele reinicia a lista de metas para zero
+  const verificarMetasExpiradas = () => {
+    const dataAtual = new Date();
+    const metasExpiradas = metas.some(item => {
+      const [dia, mes, ano] = item.data.split('/');
+      const dataMeta = new Date(ano, mes - 1, dia);
+      return dataMeta > dataAtual;
+    });
 
+    if (metasExpiradas) {
+      setMetas([]);
+      setPontos(0);
+    }
+  };
+
+  const adicionarMeta = () => {
+    if (meta.trim() === '' || dataMeta.trim() === '' || alertaVisible) {
+      setDataInvalida(true);
+      return;
+    }
+    if (!validarData(dataMeta) || !validarDataFutura(dataMeta)) {
+      setDataInvalida(true);
+      return;
+    }
+    setDataInvalida(false);
     salvarMeta();
   };
 
+  const validarData = (data) => {
+    const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+    return regex.test(data);
+  };
+
+  const validarDataFutura = (data) => {
+    const [dia, mes, ano] = data.split('/');
+    const dataInserida = new Date(ano, mes - 1, dia);
+    const dataAtual = new Date();
+    // Definindo a hora da data atual para o início do dia
+    dataAtual.setHours(0, 0, 0, 0);
+    return dataInserida >= dataAtual; // Verifica se a data inserida é igual ou posterior à data atual
+  };
+
   const salvarMeta = () => {
-    setMetas([...metas, { descricao: meta, concluida: false }]);
+    setMetas([...metas, { descricao: meta, data: dataMeta, concluida: false }]);
     setMeta('');
+    setDataMeta('');
   };
 
   const concluirMeta = (index) => {
@@ -65,7 +104,14 @@ export default function ModalMetas({ visible, onClose }) {
           {alertaVisible && (
             <View style={styles.alertContainer}>
               <Text style={styles.alertText}>Você tem {metas.filter(item => !item.concluida).length} metas não concluídas!</Text>
-              <Text style={styles.alertSubText}>Finalize as metas pendentes antes de iniiciar uma nova!</Text>
+              <Text style={styles.alertSubText}>Finalize as metas pendentes antes de iniciar uma nova!</Text>
+            </View>
+          )}
+
+          {dataInvalida && (
+            <View style={styles.alertContainer}>
+              <Text style={styles.alertText}>Formato de Data Inválido ou Data Anterior</Text>
+              <Text style={styles.alertSubText}>Por favor, insira a data no formato DD/MM/AAAA.</Text>
             </View>
           )}
 
@@ -76,6 +122,17 @@ export default function ModalMetas({ visible, onClose }) {
               placeholder="Digite sua meta (Ex: Caminhar 30 min)"
               value={meta}
               onChangeText={setMeta}
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Icon name="calendar" size={20} color="#004d00" />
+            <TextInput
+              style={styles.input}
+              placeholder="Digite a data (DD/MM/AAAA)"
+              value={dataMeta}
+              onChangeText={text => setDataMeta(text.replace(/[^0-9/]/g, ''))}  // Restringe a entrada a números e "/"
+              keyboardType="numeric"
             />
           </View>
 
@@ -101,7 +158,7 @@ export default function ModalMetas({ visible, onClose }) {
             {metas.map((item, index) => (
               <View key={index} style={styles.metaItem}>
                 <Text style={[styles.metaText, item.concluida && styles.metaConcluida]}>
-                  {item.descricao}
+                  {item.descricao} - {item.data}
                 </Text>
                 <TouchableOpacity onPress={() => concluirMeta(index)}>
                   <Icon
