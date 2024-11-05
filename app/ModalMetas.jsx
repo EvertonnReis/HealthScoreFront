@@ -28,15 +28,23 @@ export default function ModalMetas({ visible, onClose }) {
   // Verifica se alguma meta foi expirada, caso isso aconteça ele reinicia a lista de metas para zero
   const verificarMetasExpiradas = () => {
     const dataAtual = new Date();
+    
     const metasExpiradas = metas.some(item => {
       const [dia, mes, ano] = item.data.split('/');
       const dataMeta = new Date(ano, mes - 1, dia);
-      return dataMeta > dataAtual;
+      
+      // Adiciona 7 dias à data da meta
+      // A expiração da meta será contada a partir da DATA DEFINAD PARA META 
+      const dataExpiracao = new Date(dataMeta);
+      dataExpiracao.setDate(dataExpiracao.getDate() + 7);
+      
+      // Verifica se a data de expiração é anterior à data atual
+      return dataExpiracao < dataAtual;
     });
-
+  
     if (metasExpiradas) {
-      setMetas([]);
-      setPontos(0);
+      setMetas([]); // Limpa a lista de metas
+      setPontos(0);  // Zera a pontuação
     }
   };
 
@@ -214,12 +222,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   alertText: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#856404',
   },
   alertSubText: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#856404',
   },
   inputContainer: {
@@ -296,6 +304,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
   },
   metaText: {
+    fontWeight: 'bold',
     fontSize: 18,
  
 },
