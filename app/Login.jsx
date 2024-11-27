@@ -1,7 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Modal, Alert } from 'react-native';
 import React, { useState } from "react";
-import { FontAwesome } from '@expo/vector-icons'; // Para os ícones de redes sociais
+import { FontAwesome } from '@expo/vector-icons';
+import getEnvVars from '../config';
+
+const { apiUrl } = getEnvVars();
 
 export default function Login({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -15,7 +18,7 @@ export default function Login({ onLogin }) {
 
   const handleLogin = async () => {
     // try {
-    //   const response = await fetch('http://localhost:8080/api/authenticate', {
+    //   const response = await axios.get(`${apiUrl}/api/authenticate`, {
     //     method: 'POST',
     //     headers: {
     //       'Content-Type': 'application/json',
@@ -62,28 +65,28 @@ export default function Login({ onLogin }) {
       return;
     }
 
-    // try {
-    //   const response = await fetch('http://localhost:8080/api/register', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       login: registerUsername,
-    //       email: registerEmail,
-    //       password: registerPassword,
-    //     }),
-    //   });
+    try {
+      const response = await fetch(`${apiUrl}/api/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          login: registerUsername,
+          email: registerEmail,
+          password: registerPassword,
+        }),
+      });
 
-    //   if (response.ok) {
-    //     Alert.alert('Sucesso', 'Registro realizado com sucesso');
-    //     setModalVisible(false);
-    //   } else {
-    //     Alert.alert('Erro', 'Não foi possível registrar o usuário');
-    //   }
-    // } catch (error) {
-    //   Alert.alert('Erro', 'Não foi possível conectar ao servidor');
-    // }
+      if (response.ok) {
+        Alert.alert('Sucesso', 'Registro realizado com sucesso');
+        setModalVisible(false);
+      } else {
+        Alert.alert('Erro', 'Não foi possível registrar o usuário');
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível conectar ao servidor');
+    }
   };
 
   const handleForgotPassword = () => {

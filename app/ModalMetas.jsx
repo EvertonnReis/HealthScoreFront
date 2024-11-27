@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import getEnvVars from '../config';
+
+const { apiUrl } = getEnvVars();
 
 export default function ModalMetas({ visible, onClose }) {
   const [meta, setMeta] = useState('');
@@ -10,6 +13,28 @@ export default function ModalMetas({ visible, onClose }) {
   const [alertaVisible, setAlertaVisible] = useState(false);
   const [dataInvalida, setDataInvalida] = useState(false);
   const [recompensaVisible, setRecompensaVisible] = useState(false);
+
+  // const handleSave = async () => {
+  //   try {
+  //     const response = await axios.post(`${apiUrl}/metas`, {
+  //       tipoAtividade,
+  //       dataHorario: dataHorario.toISOString(),
+  //       passosCalorias,
+  //     });
+
+  //     if (response.status === 200) {
+  //       console.log('Atividade salva com sucesso:', response.data);
+  //       alert('Atividade registrada com sucesso!');
+  //       onClose();
+  //     } else {
+  //       console.error('Erro ao salvar atividade:', response.status);
+  //       alert('Ocorreu um erro ao registrar a atividade.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Erro na requisição:', error);
+  //     alert('Não foi possível conectar ao servidor.');
+  //   }
+  // };
 
   useEffect(() => {
     verificarMetasExpiradas();

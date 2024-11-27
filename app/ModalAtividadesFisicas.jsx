@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Ionicons } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons';
+import getEnvVars from '../config';
+
+const { apiUrl } = getEnvVars();
 
 export default function ModalAtividadesFisicas({ visible, onClose }) {
   const [tipoAtividade, setTipoAtividade] = useState('');
@@ -9,6 +12,27 @@ export default function ModalAtividadesFisicas({ visible, onClose }) {
   const [passosCalorias, setPassosCalorias] = useState('');
   const [showPicker, setShowPicker] = useState(false);
 
+  // const handleSave = async () => {
+  //   try {
+  //     const response = await axios.post(`${apiUrl}/atividades`, {
+  //       tipoAtividade,
+  //       dataHorario: dataHorario.toISOString(),
+  //       passosCalorias,
+  //     });
+
+  //     if (response.status === 200) {
+  //       console.log('Atividade salva com sucesso:', response.data);
+  //       alert('Atividade registrada com sucesso!');
+  //       onClose();
+  //     } else {
+  //       console.error('Erro ao salvar atividade:', response.status);
+  //       alert('Ocorreu um erro ao registrar a atividade.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Erro na requisição:', error);
+  //     alert('Não foi possível conectar ao servidor.');
+  //   }
+  // };
   const handleSave = () => {
     console.log('Tipo de Atividade:', tipoAtividade);
     console.log('Data e Horário:', dataHorario.toISOString());

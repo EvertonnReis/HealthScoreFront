@@ -6,6 +6,11 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "platforms": ["ios", "android", "web"],
+    "notification.vapidPublicKey": "BFDNAdR8zk1BzhLMJP3oWmzgnDnXRoINihjsw7uFVbx73BzXQM53U6eR12V",
+    "notification": {
+      "vapidPublicKey": "BFDNAdR8zk1BzhLMJP3oWmzgnDnXRoINihjsw7uFVbx73BzXQM53U6eR12V-Gtvpo6iJ3ovrAxTwnlhETihYBMY"
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -23,7 +28,8 @@
       "package": "com.everton.reis.healthscore"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro" 
     },
     "extra": {
       "eas": {

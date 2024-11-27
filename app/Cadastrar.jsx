@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   buttonDescription: {
     fontWeight: 'bold',
     color: '#ffffff',
-    fontSize: width * 0.05, 
+    fontSize: width * 0.04, 
     marginTop: height * 0.005,
     textAlign: 'center',
   },

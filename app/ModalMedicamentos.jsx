@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import getEnvVars from '../config';
+
+const { apiUrl } = getEnvVars();
 
 export default function ModalMedicamentos({ visible, onClose }) {
   const [nomeMedicamento, setNomeMedicamento] = useState('');
@@ -9,6 +12,27 @@ export default function ModalMedicamentos({ visible, onClose }) {
   const [horarioRegistrado, setHorarioRegistrado] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
 
+  // const handleSave = async () => {
+  //   try {
+  //     const response = await axios.post(`${apiUrl}/medicamentos`, {
+  //       tipoAtividade,
+  //       dataHorario: dataHorario.toISOString(),
+  //       passosCalorias,
+  //     });
+
+  //     if (response.status === 200) {
+  //       console.log('Atividade salva com sucesso:', response.data);
+  //       alert('Atividade registrada com sucesso!');
+  //       onClose();
+  //     } else {
+  //       console.error('Erro ao salvar atividade:', response.status);
+  //       alert('Ocorreu um erro ao registrar a atividade.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Erro na requisição:', error);
+  //     alert('Não foi possível conectar ao servidor.');
+  //   }
+  // };
   const handleSave = () => {
     // Lógica para salvar os dados
     console.log('Medicamento:', nomeMedicamento);

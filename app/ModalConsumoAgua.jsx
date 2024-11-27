@@ -3,6 +3,9 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet, Modal, Platform } 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import InputConsumoAgua from './InputConsumoAgua'; 
 import { Ionicons } from '@expo/vector-icons'; 
+import getEnvVars from '../config';
+
+const { apiUrl } = getEnvVars();
 
 export default function ModalConsumoAgua({ visible, onClose }) {
   const [dataConsumo, setDataConsumo] = useState(new Date());
@@ -10,6 +13,28 @@ export default function ModalConsumoAgua({ visible, onClose }) {
   const [quantidadeAgua, setQuantidadeAgua] = useState(''); 
   const [metaAgua, setMetaAgua] = useState(2000); 
   const [progresso, setProgresso] = useState(0);
+
+  // const handleSave = async () => {
+  //   try {
+  //     const response = await axios.post(`${apiUrl}/atividades`, {
+  //       tipoAtividade,
+  //       dataHorario: dataHorario.toISOString(),
+  //       passosCalorias,
+  //     });
+
+  //     if (response.status === 200) {
+  //       console.log('Atividade salva com sucesso:', response.data);
+  //       alert('Atividade registrada com sucesso!');
+  //       onClose();
+  //     } else {
+  //       console.error('Erro ao salvar atividade:', response.status);
+  //       alert('Ocorreu um erro ao registrar a atividade.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Erro na requisição:', error);
+  //     alert('Não foi possível conectar ao servidor.');
+  //   }
+  // };
 
   const onChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate || dataConsumo;
